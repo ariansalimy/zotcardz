@@ -8,7 +8,7 @@ import {Droppable} from './component/droppable';
 import { ExCard } from "./component/excard";
 
 export default function Home() {
-  const containers = ['A','B','C','D'];
+  const containers = ['A']
   const [parent, setParent] = useState(null);
 
   const draggableMarkup = (
@@ -19,21 +19,31 @@ export default function Home() {
       <div className=" w-full flex flex-col items-center  ">
         <Navbar></Navbar>
       </div>
-      <div className="p-12 flex justify-between flex-row">
+      <div className="p-12 flex justify-center space-x-3 flex-row">
 
    
       <DndContext onDragEnd={handleDragEnd}>
+    <div className='items-center flex flex-col border-2 size-40'>
+      To save
       {parent === null ? draggableMarkup : null}
-
+    </div>
+     
+   
+    <div className='flex flex-col items-center border-2 size-40'>
+      Saved
       {containers.map((id) => (
         // We updated the Droppable component so it would accept an `id`
         // prop and pass it to `useDroppable`
+       
         <Droppable key={id} id={id}>
-          {parent === id ? draggableMarkup :"Drop here"}
+          {parent === id ? draggableMarkup : <div className="size-40"></div>}
         </Droppable>
+
+     
       ))}
+           </div>
     </DndContext>
-  );
+
   </div>
     </main>
   );
