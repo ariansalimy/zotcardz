@@ -6,7 +6,7 @@ export function Droppable(props: { id: any; children: string | number | bigint |
     id: props.id,
   });
   const style = {
-    color: isOver ? 'green' : undefined,
+    color: isOver ? 'black' : undefined,
   };
   
   
