@@ -11,7 +11,7 @@ export default function Navbar() {
 
           <div className="flex justify-center items-center h-full">
           
-            <ul className="hidden md:flex gap-x-6 text-white">
+            <ul className="hidden md:flex gap-x-20 text-white">
               <li>
                 <Link href="/about">
                   <p>Find</p>
