@@ -49,6 +49,12 @@ export default function Find({ unsavedEvents, setUnsavedEvents }: FindProps) {
     gap: "10px",
   };
 
+  const events_grid = {
+    display: "grid",
+    gap: "10px",
+    gridTemplateColumns: "repeat(3, 1fr)"
+  }
+
   const item = {
     padding: "3px",
   };
@@ -69,9 +75,13 @@ export default function Find({ unsavedEvents, setUnsavedEvents }: FindProps) {
           <div className="flex justify-center p-10">
             <div style={events_section}>
               <div style={container}>
-                <h1 style={header}>UCI Events</h1>
 
-                <div style={container}>
+                <div style={item}>
+                <h1 style={header} className="flex justify-center">UCI Events</h1>
+                </div>
+                
+                <div style={item}>
+                <div style={events_grid}>
                   {Object.keys(unsavedEvents).map((id) => (
                     <Draggable id={id}>
                       <div style={item} key={id}>
@@ -80,6 +90,7 @@ export default function Find({ unsavedEvents, setUnsavedEvents }: FindProps) {
                     </Draggable>
                   ))}
                   {parent === null ? draggableMarkup : null}
+                </div>
                 </div>
               </div>
             </div>
