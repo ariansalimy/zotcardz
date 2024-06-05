@@ -133,59 +133,68 @@ export default function Find({
           ))}
         </div> */}
 
-        
         <Droppable id={"saving"}>
-            <div className="flex flex-col items-center my-8">
-              <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
-                <h1 className="text-white font-bold text-2xl"> Events to Save </h1>
-                <div className="flex justify-center gap-3 flex-wrap min-h-sah">
-                  <CardList cards={savingEvents}></CardList>
-                </div>
-                <Save_button handleClick={handleSave}></Save_button>
+          <div className="flex flex-col items-center my-8">
+            <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
+              <h1 className="text-white font-bold text-2xl">
+                {" "}
+                Events to Save{" "}
+              </h1>
+              <div className="flex justify-center gap-3 flex-wrap min-h-sah">
+                <CardList cards={savingEvents}></CardList>
               </div>
+              <Save_button handleClick={handleSave}></Save_button>
             </div>
+          </div>
         </Droppable>
       </DndContext>
     </>
   );
   function handleDragEnd(event: any) {
-    const { active, over } = event;
+    console.log(event);
+    const { active, over, delta } = event;
 
     // If the item is dropped over a container, set it as the parent
     // otherwise reset the parent to `null`
     // setParent(over ? over.id : null);
     console.log(active);
     console.log(over);
-    // Card in the saving area
-    if (over && over.id === "saving") {
-      // Add Event to savingEvents
-      const tempSaving = { ...savingEvents };
-      tempSaving[active.id] = unsavedEvents[active.id];
-      setSavingEvents(tempSaving);
+    // If delta.x and delta.y, then do not consider it a drag event
+    if (!(delta.x === 0) && !(delta.y === 0)) {
+      // Card in the saving area
+      if (over && over.id === "saving") {
+        // Check to make sure the card is not already in the saving area
+        if (!savingEvents[active.id]) {
+          // Add Event to savingEvents
+          const tempSaving = { ...savingEvents };
+          tempSaving[active.id] = unsavedEvents[active.id];
+          setSavingEvents(tempSaving);
 
-      // Remove Event from unsavedEvents
-      const tempUnsaved = { ...unsavedEvents };
-      delete tempUnsaved[active.id];
-      setUnsavedEvents(tempUnsaved);
+          // Remove Event from unsavedEvents
+          const tempUnsaved = { ...unsavedEvents };
+          delete tempUnsaved[active.id];
+          setUnsavedEvents(tempUnsaved);
 
-      console.log(`
-        Saving: ${savingEvents}
-        Unsaved: ${unsavedEvents}
-        `);
-    }
-    // Card not in saving area
-    else {
-      // If the card a savingEvent
-      if (savingEvents[active.id]) {
-        // Add Event to unsavedEvents
-        const tempUnsaved = { ...unsavedEvents };
-        tempUnsaved[active.id] = savingEvents[active.id];
-        setUnsavedEvents(tempUnsaved);
+          console.log(`
+          Saving: ${savingEvents}
+          Unsaved: ${unsavedEvents}
+          `);
+        }
+      }
+      // Card not in saving area
+      else {
+        // If the card a savingEvent
+        if (savingEvents[active.id]) {
+          // Add Event to unsavedEvents
+          const tempUnsaved = { ...unsavedEvents };
+          tempUnsaved[active.id] = savingEvents[active.id];
+          setUnsavedEvents(tempUnsaved);
 
-        // Remove Event from savingEvents
-        const tempSaving = { ...savingEvents };
-        delete tempSaving[active.id];
-        setSavingEvents(tempSaving);
+          // Remove Event from savingEvents
+          const tempSaving = { ...savingEvents };
+          delete tempSaving[active.id];
+          setSavingEvents(tempSaving);
+        }
       }
     }
   }
