@@ -30,8 +30,8 @@ export default function Find({
   const [parent, setParent] = useState(null);
   const [parent2, setParent2] = useState(null);
 
-  let prevSavingEvents = {...savingEvents};
-  let prevSavedEvents = {...savedEvents};
+  let prevSavingEvents = { ...savingEvents };
+  let prevSavedEvents = { ...savedEvents };
 
   const events_section = {
     display: "flex",
@@ -74,20 +74,20 @@ export default function Find({
     padding: "3px",
   };
 
-//   const draggableMarkup = (
-//     <div style={item}>
-//       <Draggable id="d1">
-//         <Event_card></Event_card>
-//       </Draggable>
-//     </div>
-//   );
+  //   const draggableMarkup = (
+  //     <div style={item}>
+  //       <Draggable id="d1">
+  //         <Event_card></Event_card>
+  //       </Draggable>
+  //     </div>
+  //   );
 
   return (
     <>
       {/*events section*/}
 
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="flex justify-center p-10">
+        {/* <div className="flex justify-center p-10">
           <div style={events_section}>
             <div style={container}>
               <div style={item}>
@@ -95,11 +95,6 @@ export default function Find({
                   UCI Events
                 </h1>
               </div>
-
-              {/* <div style={container}>
-                <CardList cards={unsavedEvents}></CardList>
-              </div> */}
-
               <div style={item}>
                 <div style={events_grid}>
                   <CardList cards={unsavedEvents}></CardList>
@@ -107,9 +102,18 @@ export default function Find({
               </div>
             </div>
           </div>
+        </div> */}
+
+        <div className="flex flex-col items-center my-8">
+          <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
+            <h1 className="text-white font-bold text-2xl"> UCI Events </h1>
+            <div className="flex justify-center gap-3 flex-wrap min-h-usah">
+              <CardList cards={unsavedEvents}></CardList>
+            </div>
+          </div>
         </div>
 
-        <div className="flex justify-center p-3">
+        {/* <div className="flex justify-center p-3">
           {containers.map((id) => (
             // We updated the Droppable component so it would accept an `id`
             // prop and pass it to `useDroppable
@@ -117,12 +121,6 @@ export default function Find({
               <div style={save_section} className="">
                 <div style={container}>
                   <h1 style={header}>Events to Save</h1>
-
-                  {/* {parent === id ? (
-                      draggableMarkup
-                    ) : (
-                      <div className="flex justify-center p-3"></div>
-                    )} */}
                   <div className="flex justify-center p-3">
                     <CardList cards={savingEvents}></CardList>
                   </div>
@@ -133,7 +131,20 @@ export default function Find({
               </div>
             </Droppable>
           ))}
-        </div>
+        </div> */}
+
+        
+        <Droppable id={"saving"}>
+            <div className="flex flex-col items-center my-8">
+              <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
+                <h1 className="text-white font-bold text-2xl"> Events to Save </h1>
+                <div className="flex justify-center gap-3 flex-wrap min-h-sah">
+                  <CardList cards={savingEvents}></CardList>
+                </div>
+                <Save_button handleClick={handleSave}></Save_button>
+              </div>
+            </div>
+        </Droppable>
       </DndContext>
     </>
   );
@@ -183,18 +194,18 @@ export default function Find({
     console.log(event);
     // Log the state of savingEvents and savedEvents if savingEvents was not empty
     if (Object.keys(savingEvents).length > 0) {
-        prevSavingEvents = {...savingEvents};
-        prevSavedEvents = {...savedEvents};
+      prevSavingEvents = { ...savingEvents };
+      prevSavedEvents = { ...savedEvents };
 
-        const tempSavingEvents = {...savingEvents};
-        const tempSavedEvents = {...savedEvents};
-        for (let id of Object.keys(savingEvents)) {
-            tempSavedEvents[id] = tempSavingEvents[id];
-            delete tempSavingEvents[id];
-        }
+      const tempSavingEvents = { ...savingEvents };
+      const tempSavedEvents = { ...savedEvents };
+      for (let id of Object.keys(savingEvents)) {
+        tempSavedEvents[id] = tempSavingEvents[id];
+        delete tempSavingEvents[id];
+      }
 
-        setSavingEvents(tempSavingEvents);
-        setSavedEvents(tempSavedEvents);
+      setSavingEvents(tempSavingEvents);
+      setSavedEvents(tempSavedEvents);
     }
 
     console.log(savingEvents);
@@ -204,7 +215,7 @@ export default function Find({
   // When we implement the undo button, attach this function as the onClick function
   function handleUndo(event: React.MouseEvent) {
     console.log(event);
-    setSavingEvents({...prevSavingEvents});
-    setSavedEvents({...prevSavedEvents});
+    setSavingEvents({ ...prevSavingEvents });
+    setSavedEvents({ ...prevSavedEvents });
   }
 }

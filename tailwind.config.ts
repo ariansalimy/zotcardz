@@ -15,6 +15,10 @@ const config: Config = {
       },
       colors: {
         "blue-light": "#6AA2B8"
+      },
+      spacing: {
+        "usah": "300px",
+        "sah": "150px"
       }
     },
   },

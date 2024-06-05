@@ -26,7 +26,7 @@ export default function Event_card({cardData}: EventCardProps) {
     <>
       <div style={styling}>
         
-          <p>{cardData.name}</p>
+          <p>{cardData?.name}</p>
      
       </div>
     </>
