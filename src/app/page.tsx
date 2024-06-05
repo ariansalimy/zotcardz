@@ -16,11 +16,11 @@ export default function Home() {
   const containers = ["A"];
   const [parent, setParent] = useState(null);
 
-  const [unsavedEvents, setUnsavedEvents] = useState(
-    new Map<string, CardData>()
+  const [unsavedEvents, setUnsavedEvents] = useState<Record<string, CardData>>(
+    {}
   );
-  const [savingEvents, setSavingEvents] = useState(new Map<string, CardData>());
-  const [savedEvents, setSavedEvents] = useState(new Map<string, CardData>());
+  const [savingEvents, setSavingEvents] = useState<Record<string, CardData>>({});
+  const [savedEvents, setSavedEvents] = useState<Record<string, CardData>>({});
 
   useEffect(() => {
     setUnsavedEvents(getSampleEvents());
@@ -29,12 +29,6 @@ export default function Home() {
   console.log(unsavedEvents);
 
   const [parent2, setParent2] = useState(null);
-
-  const draggableMarkup = (
-    <Draggable id="d1">
-      <Event_card></Event_card>
-    </Draggable>
-  );
 
   const events_section = {
     display: "flex",
@@ -71,6 +65,14 @@ export default function Home() {
     padding: "3px",
   };
 
+  const draggableMarkup = (
+    <div style={item}>
+    <Draggable id="d1">
+      <Event_card></Event_card>
+    </Draggable>
+    </div>
+  );
+
   return (
     <main className=" min-h-screen ">
       <div className=" w-full flex flex-col items-center  ">
@@ -86,12 +88,16 @@ export default function Home() {
               <h1 style={header}>UCI Events</h1>
 
               <div style={container}>
-                <div style={item}>
+                {
+                  Object.keys(unsavedEvents).map((id) => (
+                    <div style={item} key={id}>
+                    <Draggable id={id}>
+                      <Event_card></Event_card>
+                    </Draggable>
+                    </div>
+                  ))
+                }
                   {parent === null ? draggableMarkup : null}
-                </div>
-                <div style={item}>
-                  <Event_card></Event_card>
-                </div>
               </div>
             </div>
           </div>

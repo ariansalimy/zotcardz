@@ -54,10 +54,10 @@ const AllSampleEvents: CardData[] = [
 
 ]
 
-export default function getSampleEvents(): Map<string, CardData> {
-    const sampleEvents = new Map<string, CardData>();
+export default function getSampleEvents():Record<string, CardData> {
+    const sampleEvents: Record<string, CardData> = {};
     for(let cardData of AllSampleEvents) {
-        sampleEvents.set(cardData.id, cardData);
+        sampleEvents[cardData.id] = cardData;
     }
 
     return sampleEvents;
