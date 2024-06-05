@@ -7,14 +7,26 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Droppable } from "./component/droppable";
 import Save_button from "./component/Save_button";
 import { CardData } from "./data/card-data";
+import CardList from "./component/card-list";
 
 type FindProps = {
   unsavedEvents: Record<string, CardData>;
   setUnsavedEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
+  savingEvents: Record<string, CardData>;
+  setSavingEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
+  savedEvents: Record<string, CardData>;
+  setSavedEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
 };
 
-export default function Find({ unsavedEvents, setUnsavedEvents }: FindProps) {
-  const containers = ["A"];
+export default function Find({
+  unsavedEvents,
+  setUnsavedEvents,
+  savingEvents,
+  setSavingEvents,
+  savedEvents,
+  setSavedEvents,
+}: FindProps) {
+  const containers = ["saving"];
   const [parent, setParent] = useState(null);
   const [parent2, setParent2] = useState(null);
 
@@ -52,8 +64,8 @@ export default function Find({ unsavedEvents, setUnsavedEvents }: FindProps) {
   const events_grid = {
     display: "grid",
     gap: "10px",
-    gridTemplateColumns: "repeat(3, 1fr)"
-  }
+    gridTemplateColumns: "repeat(3, 1fr)",
+  };
 
   const item = {
     padding: "3px",
@@ -68,63 +80,99 @@ export default function Find({ unsavedEvents, setUnsavedEvents }: FindProps) {
   );
 
   return (
-      <>
-        {/*events section*/}
+    <>
+      {/*events section*/}
 
-        <DndContext onDragEnd={handleDragEnd}>
-          <div className="flex justify-center p-10">
-            <div style={events_section}>
-              <div style={container}>
+      <DndContext onDragEnd={handleDragEnd}>
+        <div className="flex justify-center p-10">
+          <div style={events_section}>
+            <div style={container}>
+              <div style={item}>
+                <h1 style={header} className="flex justify-center">
+                  UCI Events
+                </h1>
+              </div>
 
-                <div style={item}>
-                <h1 style={header} className="flex justify-center">UCI Events</h1>
-                </div>
-                
-                <div style={item}>
+              {/* <div style={container}>
+                <CardList cards={unsavedEvents}></CardList>
+              </div> */}
+
+              <div style={item}>
                 <div style={events_grid}>
-                  {Object.keys(unsavedEvents).map((id) => (
-                    <Draggable id={id}>
-                      <div style={item} key={id}>
-                        <Event_card></Event_card>
-                      </div>
-                    </Draggable>
-                  ))}
-                  {parent === null ? draggableMarkup : null}
-                </div>
+                  <CardList cards={unsavedEvents}></CardList>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="flex justify-center p-3">
-            <div style={save_section}>
-              <div style={container}>
-                <h1 style={header}>Events to Save</h1>
-                {containers.map((id) => (
-                  // We updated the Droppable component so it would accept an `id`
-                  // prop and pass it to `useDroppable`
-                  <Droppable key={id} id={id}>
-                    {parent === id ? (
+        <div className="flex justify-center p-3">
+          {containers.map((id) => (
+            // We updated the Droppable component so it would accept an `id`
+            // prop and pass it to `useDroppable
+            <Droppable key={id} id={id}>
+              <div style={save_section} className="">
+                <div style={container}>
+                  <h1 style={header}>Events to Save</h1>
+
+                  {/* {parent === id ? (
                       draggableMarkup
                     ) : (
                       <div className="flex justify-center p-3"></div>
-                    )}
-                  </Droppable>
-                ))}
-                <div className="flex justify-center p-3">
-                  <Save_button></Save_button>
+                    )} */}
+                  <div className="flex justify-center p-3">
+                    <CardList cards={savingEvents}></CardList>
+                  </div>
+                  <div className="flex justify-center p-3">
+                    <Save_button></Save_button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </DndContext>
-      </>
+            </Droppable>
+          ))}
+        </div>
+      </DndContext>
+    </>
   );
   function handleDragEnd(event: any) {
-    const { over } = event;
+    const { active, over } = event;
 
     // If the item is dropped over a container, set it as the parent
     // otherwise reset the parent to `null`
-    setParent(over ? over.id : null);
+    // setParent(over ? over.id : null);
+    console.log(active);
+    console.log(over);
+    // Card in the saving area
+    if (over && over.id === "saving") {
+      // Add Event to savingEvents
+      const tempSaving = { ...savingEvents };
+      tempSaving[active.id] = unsavedEvents[active.id];
+      setSavingEvents(tempSaving);
+
+      // Remove Event from unsavedEvents
+      const tempUnsaved = { ...unsavedEvents };
+      delete tempUnsaved[active.id];
+      setUnsavedEvents(tempUnsaved);
+
+      console.log(`
+        Saving: ${savingEvents}
+        Unsaved: ${unsavedEvents}
+        `);
+    }
+    // Card not in saving area
+    else {
+      // If the card a savingEvent
+      if (savingEvents[active.id]) {
+        // Add Event to unsavedEvents
+        const tempUnsaved = { ...unsavedEvents };
+        tempUnsaved[active.id] = savingEvents[active.id];
+        setUnsavedEvents(tempUnsaved);
+
+        // Remove Event from savingEvents
+        const tempSaving = { ...savingEvents };
+        delete tempSaving[active.id];
+        setSavingEvents(tempSaving);
+      }
+    }
   }
 }

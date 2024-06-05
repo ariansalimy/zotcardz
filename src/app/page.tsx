@@ -35,7 +35,7 @@ export default function Home() {
         <Navbar></Navbar>
       </div>
       <main className=" min-h-screen ">
-        <Find unsavedEvents={unsavedEvents} setUnsavedEvents={setUnsavedEvents} />
+        <Find unsavedEvents={unsavedEvents} setUnsavedEvents={setUnsavedEvents} savingEvents={savingEvents} setSavingEvents={setSavingEvents} savedEvents={savedEvents} setSavedEvents={setSavedEvents} />
       </main>
     </>
   );
