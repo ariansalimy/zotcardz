@@ -21,9 +21,9 @@ export default function Event_card() {
   return (
     <>
       <div style={styling}>
-        <Link href="/Event">
+        
           <p>Event</p>
-        </Link>
+     
       </div>
     </>
   );

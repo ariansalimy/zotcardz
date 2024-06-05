@@ -14,6 +14,7 @@ import { CardData, months, min_to_hrmin, hrmin_to_min } from "./data/card-data";
 export default function Home() {
   const containers = ["A"];
   const [parent, setParent] = useState(null);
+  const [parent2, setParent2] = useState(null);
 
   const draggableMarkup = (
     <Draggable id="d1">
@@ -62,34 +63,7 @@ export default function Home() {
         <Navbar></Navbar>
       </div>
 
-      {/*drag and drop section*/}
-      <div style={container}>
-        <div style={item}>
-          <div className="p-8 flex justify-center space-x-3 flex-row">
-            <DndContext onDragEnd={handleDragEnd}>
-              <div className="items-center flex flex-col border-2 w-4/6 h-96">
-                To save
-                {parent === null ? draggableMarkup : null}
-              </div>
-
-              <div className="flex flex-col items-center border-2 w-2/6 ">
-                Saved
-                {containers.map((id) => (
-                  // We updated the Droppable component so it would accept an `id`
-                  // prop and pass it to `useDroppable`
-
-                  <Droppable key={id} id={id}>
-                    {parent === id ? (
-                      draggableMarkup
-                    ) : (
-                      <div className="bg-amber-200 w-96 h-96"></div>
-                    )}
-                  </Droppable>
-                ))}
-              </div>
-            </DndContext>
-          </div>
-
+     
           {/*events section*/}
 
           <DndContext onDragEnd={handleDragEnd}>
@@ -101,10 +75,7 @@ export default function Home() {
 
                 <div style={container}>
                   <div style={item}>
-                    <Draggable id='card1'>
-                    <Event_card></Event_card>
-
-                    </Draggable>
+                  {parent === null ? draggableMarkup : null}
                   </div>
                   <div style={item}>
                     <Event_card></Event_card>
@@ -113,25 +84,36 @@ export default function Home() {
               </div>
             </div>
           </div>
-
-        <Droppable id={"saving"}>
+         
         <div className="flex justify-center p-3">
             <div style={save_section}>
+           
               <div style={container}>
+
+                
                 <h1 style={header}>Events to Save</h1>
+                {containers.map((id) => (
+        // We updated the Droppable component so it would accept an `id`
+        // prop and pass it to `useDroppable`
+        <Droppable key={id} id={id}>
+          {parent === id ? draggableMarkup : <div className="flex justify-center p-3">
+                
+                </div>}
+        </Droppable>
+      ))}
                 <div className="flex justify-center p-3">
                   <Save_button></Save_button>
                 </div>
               </div>
             </div>
           </div>
-        </Droppable>
+    
           
             </DndContext>
 
 
-        </div>
-      </div>
+
+ 
     </main>
   );
   function handleDragEnd(event: any) {
