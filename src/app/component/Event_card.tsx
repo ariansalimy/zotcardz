@@ -1,8 +1,12 @@
 import React from "react";
 import Link from "next/link";
+import { CardData } from "../data/card-data";
 
+type EventCardProps = {
+  cardData: CardData
+}
 
-export default function Event_card() {
+export default function Event_card({cardData}: EventCardProps) {
 
   const styling = {
     display: "flex",
@@ -22,7 +26,7 @@ export default function Event_card() {
     <>
       <div style={styling}>
         
-          <p>Event</p>
+          <p>{cardData.name}</p>
      
       </div>
     </>

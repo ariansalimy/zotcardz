@@ -74,13 +74,13 @@ export default function Find({
     padding: "3px",
   };
 
-  const draggableMarkup = (
-    <div style={item}>
-      <Draggable id="d1">
-        <Event_card></Event_card>
-      </Draggable>
-    </div>
-  );
+//   const draggableMarkup = (
+//     <div style={item}>
+//       <Draggable id="d1">
+//         <Event_card></Event_card>
+//       </Draggable>
+//     </div>
+//   );
 
   return (
     <>

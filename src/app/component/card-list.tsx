@@ -18,7 +18,7 @@ export default function CardList({ cards }: CardListProps) {
     {Object.keys(cards).map((id) => (
       <Draggable id={id}>
         <div style={item} key={id}>
-          <Event_card></Event_card>
+          <Event_card cardData={cards[id]}></Event_card>
         </div>
       </Draggable>
     ))}
