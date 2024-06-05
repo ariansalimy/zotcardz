@@ -12,7 +12,10 @@ export type CardData = {
     timeEnd: number, // in minutes
     description: string,
     location: string,
-    links: string[]
+    links: [{
+        kind: string, // Like "Volunteer" or "Mentor"
+        link: string
+    }]
 }
 
 export const months = {

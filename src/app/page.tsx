@@ -4,16 +4,30 @@ import Navbar from "./component/navbar";
 import Event_card from "./component/Event_card";
 import Save_button from "./component/Save_button";
 import { DndContext } from "@dnd-kit/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Draggable } from "./component/draggable";
 import { Droppable } from "./component/droppable";
 import { ExCard } from "./component/excard";
 
 import { CardData, months, min_to_hrmin, hrmin_to_min } from "./data/card-data";
+import getSampleEvents from "./data/sampleEvents";
 
 export default function Home() {
   const containers = ["A"];
   const [parent, setParent] = useState(null);
+
+  const [unsavedEvents, setUnsavedEvents] = useState(
+    new Map<string, CardData>()
+  );
+  const [savingEvents, setSavingEvents] = useState(new Map<string, CardData>());
+  const [savedEvents, setSavedEvents] = useState(new Map<string, CardData>());
+
+  useEffect(() => {
+    setUnsavedEvents(getSampleEvents());
+    console.log("in use effect");
+  }, []);
+  console.log(unsavedEvents);
+
   const [parent2, setParent2] = useState(null);
 
   const draggableMarkup = (
@@ -67,11 +81,10 @@ export default function Home() {
           {/*events section*/}
 
           <DndContext onDragEnd={handleDragEnd}>
-
-          <div className="flex justify-center p-10">
-            <div style={events_section}>
-              <div style={container}>
-                <h1 style={header}>UCI Events</h1>
+            <div className="flex justify-center p-10">
+              <div style={events_section}>
+                <div style={container}>
+                  <h1 style={header}>UCI Events</h1>
 
                 <div style={container}>
                   <div style={item}>
