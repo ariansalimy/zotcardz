@@ -6,13 +6,14 @@ import { useState } from "react";
 import {Draggable} from "./component/draggable"
 import {Droppable} from './component/droppable';
 import { ExCard } from "./component/excard";
+import Event_card from "./component/Event_card";
 
 export default function Home() {
   const containers = ['A']
   const [parent, setParent] = useState(null);
 
   const draggableMarkup = (
-    <Draggable id="d1"><ExCard/></Draggable>
+    <Draggable id="d1"><Event_card></Event_card></Draggable>
   );
   return (
     <main className=" min-h-screen ">
