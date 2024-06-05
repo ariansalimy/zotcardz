@@ -30,7 +30,7 @@ export default function Saved({
     <div className="flex flex-col items-center my-8">
       <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
         <h1 className="text-white font-bold text-2xl">Saved Events</h1>
-        <div className="flex justify-center gap-3 flex-wrap">
+        <div className="flex justify-center gap-3 flex-wrap min-h-usah">
           <CardList cards={savedEvents}></CardList>
         </div>
       </div>
