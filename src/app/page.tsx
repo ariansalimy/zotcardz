@@ -19,7 +19,9 @@ export default function Home() {
   const [unsavedEvents, setUnsavedEvents] = useState<Record<string, CardData>>(
     {}
   );
-  const [savingEvents, setSavingEvents] = useState<Record<string, CardData>>({});
+  const [savingEvents, setSavingEvents] = useState<Record<string, CardData>>(
+    {}
+  );
   const [savedEvents, setSavedEvents] = useState<Record<string, CardData>>({});
 
   useEffect(() => {
@@ -67,9 +69,9 @@ export default function Home() {
 
   const draggableMarkup = (
     <div style={item}>
-    <Draggable id="d1">
-      <Event_card></Event_card>
-    </Draggable>
+      <Draggable id="d1">
+        <Event_card></Event_card>
+      </Draggable>
     </div>
   );
 
@@ -88,16 +90,14 @@ export default function Home() {
               <h1 style={header}>UCI Events</h1>
 
               <div style={container}>
-                {
-                  Object.keys(unsavedEvents).map((id) => (
+                {Object.keys(unsavedEvents).map((id) => (
+                  <Draggable id={id}>
                     <div style={item} key={id}>
-                    <Draggable id={id}>
                       <Event_card></Event_card>
-                    </Draggable>
                     </div>
-                  ))
-                }
-                  {parent === null ? draggableMarkup : null}
+                  </Draggable>
+                ))}
+                {parent === null ? draggableMarkup : null}
               </div>
             </div>
           </div>
