@@ -24,7 +24,7 @@ export default function Event_card({cardData}: EventCardProps) {
   }
   return (
     <>
-      <div style={styling}>
+      <div style={styling} onClick={() => {console.log("clicked")}}>
         
           <p>{cardData?.name}</p>
      
