@@ -12,6 +12,7 @@ import { ExCard } from "./component/excard";
 import { CardData, months, min_to_hrmin, hrmin_to_min } from "./data/card-data";
 import getSampleEvents from "./data/sampleEvents";
 import Find from "./find";
+import Saved from "./saved";
 
 export default function Home() {
   const [unsavedEvents, setUnsavedEvents] = useState<Record<string, CardData>>(
@@ -41,6 +42,17 @@ export default function Home() {
       <main className=" min-h-screen ">
         {currentPage === "find" && (
           <Find
+            unsavedEvents={unsavedEvents}
+            setUnsavedEvents={setUnsavedEvents}
+            savingEvents={savingEvents}
+            setSavingEvents={setSavingEvents}
+            savedEvents={savedEvents}
+            setSavedEvents={setSavedEvents}
+          />
+        )}
+
+        {currentPage === "saved" && (
+          <Saved
             unsavedEvents={unsavedEvents}
             setUnsavedEvents={setUnsavedEvents}
             savingEvents={savingEvents}
