@@ -6,8 +6,10 @@ import Event_card from "./component/Event_card";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Droppable } from "./component/droppable";
 import Save_button from "./component/Save_button";
-import { CardData } from "./data/card-data";
+import { CardData, sampleCard } from "./data/card-data";
 import CardList from "./component/card-list";
+import InfoModal from "./component/info-modal";
+import getSampleEvents from "./data/sampleEvents";
 
 type FindProps = {
   unsavedEvents: Record<string, CardData>;
@@ -32,6 +34,9 @@ export default function Find({
 
   let prevSavingEvents = { ...savingEvents };
   let prevSavedEvents = { ...savedEvents };
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [currentCardModal, setCurrentCardModal] = useState<CardData>(sampleCard);
 
   const events_section = {
     display: "flex",
@@ -148,6 +153,8 @@ export default function Find({
           </div>
         </Droppable>
       </DndContext>
+
+      <InfoModal cardData={currentCardModal} visible={modalVisible} setVisible={setModalVisible}></InfoModal>
     </>
   );
   function handleDragEnd(event: any) {
@@ -196,6 +203,11 @@ export default function Find({
           setSavingEvents(tempSaving);
         }
       }
+    }
+    // If it is a click event and not a drag event
+    else {
+        setCurrentCardModal(getSampleEvents()[active.id]);
+        setModalVisible(true);
     }
   }
 

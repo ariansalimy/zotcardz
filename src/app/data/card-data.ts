@@ -18,6 +18,26 @@ export type CardData = {
     }]
 }
 
+export const sampleCard: CardData = {
+    id: "!sample1",
+    name: "Sample Card",
+    organization: "Sample Org",
+    category: "Sample Category",
+    date: {
+        month: 1,
+        day: 1,
+        year: 2025
+    },
+    timeStart: hrmin_to_min(12, 0), // in minutes
+    timeEnd: hrmin_to_min(15, 0), // in minutes
+    description: "Description",
+    location: "Sample Location",
+    links: [{
+        kind: "website", // Like "Volunteer" or "Mentor"
+        link: "./"
+    }]
+}
+
 export const months = {
     1: "January",
     2: "February",
