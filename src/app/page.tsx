@@ -77,56 +77,48 @@ export default function Home() {
         <Navbar></Navbar>
       </div>
 
-     
-          {/*events section*/}
+      {/*events section*/}
 
-          <DndContext onDragEnd={handleDragEnd}>
-            <div className="flex justify-center p-10">
-              <div style={events_section}>
-                <div style={container}>
-                  <h1 style={header}>UCI Events</h1>
+      <DndContext onDragEnd={handleDragEnd}>
+        <div className="flex justify-center p-10">
+          <div style={events_section}>
+            <div style={container}>
+              <h1 style={header}>UCI Events</h1>
 
-                <div style={container}>
-                  <div style={item}>
-                  {parent === null ? draggableMarkup : null}
-                  </div>
-                  <div style={item}>
-                    <Event_card></Event_card>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-         
-        <div className="flex justify-center p-3">
-            <div style={save_section}>
-           
               <div style={container}>
-
-                
-                <h1 style={header}>Events to Save</h1>
-                {containers.map((id) => (
-        // We updated the Droppable component so it would accept an `id`
-        // prop and pass it to `useDroppable`
-        <Droppable key={id} id={id}>
-          {parent === id ? draggableMarkup : <div className="flex justify-center p-3">
-                
-                </div>}
-        </Droppable>
-      ))}
-                <div className="flex justify-center p-3">
-                  <Save_button></Save_button>
+                <div style={item}>
+                  {parent === null ? draggableMarkup : null}
+                </div>
+                <div style={item}>
+                  <Event_card></Event_card>
                 </div>
               </div>
             </div>
           </div>
-    
-          
-            </DndContext>
+        </div>
 
-
-
- 
+        <div className="flex justify-center p-3">
+          <div style={save_section}>
+            <div style={container}>
+              <h1 style={header}>Events to Save</h1>
+              {containers.map((id) => (
+                // We updated the Droppable component so it would accept an `id`
+                // prop and pass it to `useDroppable`
+                <Droppable key={id} id={id}>
+                  {parent === id ? (
+                    draggableMarkup
+                  ) : (
+                    <div className="flex justify-center p-3"></div>
+                  )}
+                </Droppable>
+              ))}
+              <div className="flex justify-center p-3">
+                <Save_button></Save_button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </DndContext>
     </main>
   );
   function handleDragEnd(event: any) {
