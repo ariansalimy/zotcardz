@@ -14,7 +14,6 @@ import getSampleEvents from "./data/sampleEvents";
 import Find from "./find";
 
 export default function Home() {
-
   const [unsavedEvents, setUnsavedEvents] = useState<Record<string, CardData>>(
     {}
   );
@@ -34,10 +33,22 @@ export default function Home() {
   return (
     <>
       <div className=" w-full flex flex-col items-center  ">
-        <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage}></Navbar>
+        <Navbar
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        ></Navbar>
       </div>
       <main className=" min-h-screen ">
-        <Find unsavedEvents={unsavedEvents} setUnsavedEvents={setUnsavedEvents} savingEvents={savingEvents} setSavingEvents={setSavingEvents} savedEvents={savedEvents} setSavedEvents={setSavedEvents} />
+        {currentPage === "find" && (
+          <Find
+            unsavedEvents={unsavedEvents}
+            setUnsavedEvents={setUnsavedEvents}
+            savingEvents={savingEvents}
+            setSavingEvents={setSavingEvents}
+            savedEvents={savedEvents}
+            setSavedEvents={setSavedEvents}
+          />
+        )}
       </main>
     </>
   );
