@@ -3,7 +3,7 @@
 import { DndContext } from "@dnd-kit/core";
 import { Draggable } from "./component/draggable";
 import Event_card from "./component/Event_card";
-import { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Droppable } from "./component/droppable";
 import Save_button from "./component/Save_button";
 import { CardData } from "./data/card-data";
@@ -29,6 +29,9 @@ export default function Find({
   const containers = ["saving"];
   const [parent, setParent] = useState(null);
   const [parent2, setParent2] = useState(null);
+
+  let prevSavingEvents = {...savingEvents};
+  let prevSavedEvents = {...savedEvents};
 
   const events_section = {
     display: "flex",
@@ -124,7 +127,7 @@ export default function Find({
                     <CardList cards={savingEvents}></CardList>
                   </div>
                   <div className="flex justify-center p-3">
-                    <Save_button></Save_button>
+                    <Save_button handleClick={handleSave}></Save_button>
                   </div>
                 </div>
               </div>
@@ -174,5 +177,34 @@ export default function Find({
         setSavingEvents(tempSaving);
       }
     }
+  }
+
+  function handleSave(event: React.MouseEvent) {
+    console.log(event);
+    // Log the state of savingEvents and savedEvents if savingEvents was not empty
+    if (Object.keys(savingEvents).length > 0) {
+        prevSavingEvents = {...savingEvents};
+        prevSavedEvents = {...savedEvents};
+
+        const tempSavingEvents = {...savingEvents};
+        const tempSavedEvents = {...savedEvents};
+        for (let id of Object.keys(savingEvents)) {
+            tempSavedEvents[id] = tempSavingEvents[id];
+            delete tempSavingEvents[id];
+        }
+
+        setSavingEvents(tempSavingEvents);
+        setSavedEvents(tempSavedEvents);
+    }
+
+    console.log(savingEvents);
+    console.log(savedEvents);
+  }
+
+  // When we implement the undo button, attach this function as the onClick function
+  function handleUndo(event: React.MouseEvent) {
+    console.log(event);
+    setSavingEvents({...prevSavingEvents});
+    setSavedEvents({...prevSavedEvents});
   }
 }

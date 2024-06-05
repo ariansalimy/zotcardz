@@ -27,8 +27,9 @@ export default function Saved({
   setSavedEvents,
 }: SavedProps) {
   return (
-    <div>
+    <div className="flex justify-center">
       <h1>In Saved</h1>
+      <CardList cards={savedEvents}></CardList>
     </div>
   );
 }
