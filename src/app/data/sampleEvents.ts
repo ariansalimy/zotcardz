@@ -51,6 +51,22 @@ const AllSampleEvents: CardData[] = [
         location: "",
         links: [{kind: "", link: ""}]
     }, 
+    {
+        id: "3",
+        name: "Sample 3",
+        organization: "",
+        category: "",
+        date: {
+            month: 0,
+            day: 0,
+            year: 0
+        },
+        timeStart: 0,
+        timeEnd: 0,
+        description: "",
+        location: "",
+        links: [{kind: "", link: ""}]
+    }, 
 
 ]
 
