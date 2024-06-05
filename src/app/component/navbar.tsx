@@ -1,9 +1,14 @@
-
-import React from "react";
+"use client";
+import React, { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 
 
-export default function Navbar() {
+type NavbarProps = {
+  currentPage: string,
+  setCurrentPage: Dispatch<SetStateAction<string>>
+}
+
+export default function Navbar( {currentPage, setCurrentPage}: NavbarProps ) {
   return (
     <>
       <div className="w-full h-20 bg-[#1b3d6d] sticky top-0">
@@ -11,23 +16,35 @@ export default function Navbar() {
         <div className="container mx-auto px-4 h-full">
 
           <div className="flex justify-center items-center h-full">
-          
+
             <ul className="hidden md:flex gap-x-20 text-white">
               <li>
-                <Link href="/about">
+                <button onClick={() => {
+                  if (currentPage !== "find") {
+                    setCurrentPage("find")
+                  }
+                }}>
                   <p>Find</p>
-                </Link>
+                </button>
               </li>
               <li>
-                <Link href="/services">
+                <button onClick={() => {
+                  if (currentPage !== "saved") {
+                    setCurrentPage("saved")
+                  }
+                }}>
                   <p>Saved</p>
-                </Link>
+                </button>
               </li>
-              <li>
-                <Link href="/contacts">
+              {/* <li>
+                <button onClick={() => {
+                  if (currentPage !== "create") {
+                    setCurrentPage("create")
+                  }
+                }}>
                   <p>Create</p>
-                </Link>
-              </li>
+                </button>
+              </li> */}
             </ul>
             
           </div>

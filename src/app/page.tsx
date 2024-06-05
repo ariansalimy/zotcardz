@@ -23,6 +23,8 @@ export default function Home() {
   );
   const [savedEvents, setSavedEvents] = useState<Record<string, CardData>>({});
 
+  const [currentPage, setCurrentPage] = useState("find");
+
   useEffect(() => {
     setUnsavedEvents(getSampleEvents());
     console.log("in use effect");
@@ -32,7 +34,7 @@ export default function Home() {
   return (
     <>
       <div className=" w-full flex flex-col items-center  ">
-        <Navbar></Navbar>
+        <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage}></Navbar>
       </div>
       <main className=" min-h-screen ">
         <Find unsavedEvents={unsavedEvents} setUnsavedEvents={setUnsavedEvents} savingEvents={savingEvents} setSavingEvents={setSavingEvents} savedEvents={savedEvents} setSavedEvents={setSavedEvents} />
