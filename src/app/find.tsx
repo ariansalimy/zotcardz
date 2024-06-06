@@ -25,6 +25,8 @@ type FindProps = {
   setPrevSavingEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
   prevSavedEvents: Record<string, CardData>;
   setPrevSavedEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
+  prevUnsavedEvents: Record<string, CardData>;
+  setPrevUnsavedEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
 };
 
 export default function Find({
@@ -38,6 +40,8 @@ export default function Find({
   setPrevSavingEvents,
   prevSavedEvents,
   setPrevSavedEvents,
+  prevUnsavedEvents,
+  setPrevUnsavedEvents
 }: FindProps) {
   const containers = ["saving"];
   const [parent, setParent] = useState(null);
@@ -301,6 +305,7 @@ export default function Find({
     if (Object.keys(savingEvents).length > 0) {
       setPrevSavingEvents({ ...savingEvents });
       setPrevSavedEvents({ ...savedEvents });
+      setPrevUnsavedEvents({ ...unsavedEvents });
 
       console.log(`Before Save: Saving then Saved`);
       console.log(prevSavingEvents);
@@ -337,6 +342,7 @@ export default function Find({
     console.log(prevSavedEvents);
     setSavingEvents({ ...prevSavingEvents });
     setSavedEvents({ ...prevSavedEvents });
+    setUnsavedEvents({ ...prevUnsavedEvents });
 
     setJustSaved(false);
     setSavingAreaText("Events to Save");

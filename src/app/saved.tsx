@@ -20,6 +20,12 @@ type SavedProps = {
   setSavingEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
   savedEvents: Record<string, CardData>;
   setSavedEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
+  prevSavingEvents: Record<string, CardData>;
+  setPrevSavingEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
+  prevSavedEvents: Record<string, CardData>;
+  setPrevSavedEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
+  prevUnsavedEvents: Record<string, CardData>;
+  setPrevUnsavedEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
 };
 
 export default function Saved({
@@ -29,10 +35,18 @@ export default function Saved({
   setSavingEvents,
   savedEvents,
   setSavedEvents,
+  prevSavingEvents,
+  setPrevSavingEvents,
+  prevSavedEvents,
+  setPrevSavedEvents,
+  prevUnsavedEvents,
+  setPrevUnsavedEvents
 }: SavedProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentCardModal, setCurrentCardModal] =
     useState<CardData>(sampleCard);
+
+  const [deleted, setDeleted] = useState(false);
 
   function handleDragEnd(event: any) {
     console.log(event);
@@ -49,6 +63,12 @@ export default function Saved({
       setModalVisible(true);
     } else {
       if (over && over.id === "delete") {
+        setPrevSavingEvents({ ...savingEvents });
+        setPrevSavedEvents({ ...savedEvents });
+        setPrevUnsavedEvents({ ...unsavedEvents });
+        
+        setDeleted(true);
+
         // Add Event to unsavedEvents
         const tempUnsaved = { ...unsavedEvents };
         tempUnsaved[active.id] = savedEvents[active.id];
@@ -91,6 +111,13 @@ export default function Saved({
                 <DeleteIcon sx={{ fontSize: 48 }} />
               </Droppable>
             </div>
+            {deleted && (
+                <Button
+                  text="Undo Delete"
+                  handleClick={handleUndo}
+                  style={3}
+                ></Button>
+              )}
           </div>
         </div>
       </DndContext>
@@ -102,4 +129,14 @@ export default function Saved({
       ></InfoModal>
     </>
   );
+
+  function handleUndo(event: React.MouseEvent) {
+    console.log(event);
+    console.log(prevSavingEvents);
+    console.log(prevSavedEvents);
+    setSavingEvents({ ...prevSavingEvents });
+    setSavedEvents({ ...prevSavedEvents });
+    setUnsavedEvents({ ...prevUnsavedEvents });
+    setDeleted(false);
+  }
 }

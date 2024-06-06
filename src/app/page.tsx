@@ -27,6 +27,7 @@ export default function Home() {
     {}
   );
   const [prevSavedEvents, setPrevSavedEvents] = useState<Record<string, CardData>>({});
+  const [prevUnsavedEvents, setPrevUnsavedEvents] = useState<Record<string, CardData>>({});
 
   const [currentPage, setCurrentPage] = useState("find");
 
@@ -57,6 +58,8 @@ export default function Home() {
             setPrevSavingEvents={setPrevSavingEvents}
             prevSavedEvents={prevSavedEvents}
             setPrevSavedEvents={setPrevSavedEvents}
+            prevUnsavedEvents={prevUnsavedEvents}
+            setPrevUnsavedEvents={setPrevUnsavedEvents}
           />
         )}
 
@@ -68,6 +71,12 @@ export default function Home() {
             setSavingEvents={setSavingEvents}
             savedEvents={savedEvents}
             setSavedEvents={setSavedEvents}
+            prevSavingEvents={prevSavingEvents}
+            setPrevSavingEvents={setPrevSavingEvents}
+            prevSavedEvents={prevSavedEvents}
+            setPrevSavedEvents={setPrevSavedEvents}
+            prevUnsavedEvents={prevUnsavedEvents}
+            setPrevUnsavedEvents={setPrevUnsavedEvents}
           />
         )}
       </main>
