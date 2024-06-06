@@ -51,7 +51,7 @@ export default function Saved({
   return (
     <>
       <div className="flex flex-col items-center my-8">
-        <h2 className="text-blue-dark font-bold text-4xl"> Saved UCI Events </h2>
+        <h1 className="text-blue-dark font-bold text-4xl"> Saved UCI Events </h1>
       </div>
 
       <DndContext onDragEnd={handleDragEnd}>
