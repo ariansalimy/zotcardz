@@ -14,6 +14,7 @@ const item = {
   };
 
 export default function CardList({ cards, disabled=false }: CardListProps) {
+  
   return (
   <>
     {Object.keys(cards).map((id) => (

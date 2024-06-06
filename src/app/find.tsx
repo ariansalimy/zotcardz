@@ -140,6 +140,9 @@ export default function Find({
               <FindHelp text="Drag an event card to the “Events to Save” area and press the button to save it!" />{" "}
             </h2>
             <div className="flex justify-center gap-3 flex-wrap min-h-usah">
+              {Object.keys(unsavedEvents).length == 0 && (
+                <h3 className="text-white font-bold text-xl">No events left to be saved.</h3>
+              )}
               {!isRandom && <CardList cards={unsavedEvents}></CardList>}
               {isRandom && (
                 <Draggable id={randCardData.id}>
