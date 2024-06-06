@@ -10,6 +10,7 @@ import { CardData, sampleCard } from "./data/card-data";
 import CardList from "./component/card-list";
 import InfoModal from "./component/info-modal";
 import getSampleEvents from "./data/sampleEvents";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 type SavedProps = {
   unsavedEvents: Record<string, CardData>;
@@ -45,13 +46,33 @@ export default function Saved({
     if (delta.x === 0 && delta.y === 0) {
       setCurrentCardModal(getSampleEvents()[active.id]);
       setModalVisible(true);
+    } else {
+      if (over && over.id === "delete") {
+        // Add Event to unsavedEvents
+        const tempUnsaved = { ...unsavedEvents };
+        tempUnsaved[active.id] = savedEvents[active.id];
+        setUnsavedEvents(tempUnsaved);
+
+        // Remove Event from savedEvents
+        const tempSaved = { ...savedEvents };
+        delete tempSaved[active.id];
+        setSavedEvents(tempSaved);
+
+        console.log(`
+          Saving: ${savingEvents}
+          Unsaved: ${unsavedEvents}
+          `);
+      }
     }
   }
 
   return (
     <>
       <div className="flex flex-col items-center my-8">
-        <h1 className="text-blue-dark font-bold text-4xl"> Saved UCI Events </h1>
+        <h1 className="text-blue-dark font-bold text-4xl">
+          {" "}
+          Saved UCI Events{" "}
+        </h1>
       </div>
 
       <DndContext onDragEnd={handleDragEnd}>
@@ -61,6 +82,11 @@ export default function Saved({
             <div className="flex justify-center gap-3 flex-wrap min-h-usah">
               <CardList cards={savedEvents}></CardList>
             </div>
+            <Droppable id={"delete"}>
+              <div className="text-white relative bottom-0 right-0">
+                <DeleteIcon sx={{ fontSize: 48 }} />
+              </div>
+            </Droppable>
           </div>
         </div>
       </DndContext>
