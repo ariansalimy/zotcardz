@@ -36,7 +36,8 @@ export default function Find({
   let prevSavedEvents = { ...savedEvents };
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [currentCardModal, setCurrentCardModal] = useState<CardData>(sampleCard);
+  const [currentCardModal, setCurrentCardModal] =
+    useState<CardData>(sampleCard);
 
   const events_section = {
     display: "flex",
@@ -110,8 +111,12 @@ export default function Find({
         </div> */}
 
         <div className="flex flex-col items-center my-8">
+          <h2 className="text-blue-dark font-bold text-4xl"> UCI Events </h2>
+        </div>
+
+        <div className="flex flex-col items-center my-8">
           <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
-            <h1 className="text-white font-bold text-2xl"> UCI Events </h1>
+            <h2 className="text-white font-bold text-2xl"> UCI Events </h2>
             <div className="flex justify-center gap-3 flex-wrap min-h-usah">
               <CardList cards={unsavedEvents}></CardList>
             </div>
@@ -141,10 +146,10 @@ export default function Find({
         <Droppable id={"saving"}>
           <div className="flex flex-col items-center my-8">
             <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
-              <h1 className="text-white font-bold text-2xl">
+              <h2 className="text-white font-bold text-2xl">
                 {" "}
                 Events to Save{" "}
-              </h1>
+              </h2>
               <div className="flex justify-center gap-3 flex-wrap min-h-sah">
                 <CardList cards={savingEvents}></CardList>
               </div>
@@ -154,7 +159,11 @@ export default function Find({
         </Droppable>
       </DndContext>
 
-      <InfoModal cardData={currentCardModal} visible={modalVisible} setVisible={setModalVisible}></InfoModal>
+      <InfoModal
+        cardData={currentCardModal}
+        visible={modalVisible}
+        setVisible={setModalVisible}
+      ></InfoModal>
     </>
   );
   function handleDragEnd(event: any) {
@@ -206,8 +215,8 @@ export default function Find({
     }
     // If it is a click event and not a drag event
     else {
-        setCurrentCardModal(getSampleEvents()[active.id]);
-        setModalVisible(true);
+      setCurrentCardModal(getSampleEvents()[active.id]);
+      setModalVisible(true);
     }
   }
 
