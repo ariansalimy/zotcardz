@@ -43,7 +43,9 @@ export default function InfoModal({
             <p>Hosted by {cardData.organization}</p>
           </div>
 
-          <p><span className=" font-bold ">Category</span> {cardData.category}</p>
+          <p>
+            <span className=" font-bold ">Category</span> {cardData.category}
+          </p>
           <p>
             <span className=" font-bold ">Date</span>{" "}
             {getMonthString(cardData.date.month)} {cardData.date.day},{" "}
@@ -61,8 +63,10 @@ export default function InfoModal({
           <p>
             <span className=" font-bold ">Location</span> {cardData.location}
           </p>
-          <p>
-            <span className=" font-bold ">Links</span>
+          <div>
+            <p>
+              <span className=" font-bold ">Links</span>
+            </p>
             <ul>
               {cardData.links.map((link) => (
                 <li className=" text-blue-dark underline">
@@ -73,7 +77,7 @@ export default function InfoModal({
                 </li>
               ))}
             </ul>
-          </p>
+          </div>
         </div>
       </div>
     </div>
