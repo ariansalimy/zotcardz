@@ -11,7 +11,6 @@ import CardList from "./component/card-list";
 import InfoModal from "./component/info-modal";
 import getSampleEvents from "./data/sampleEvents";
 
-
 type SavedProps = {
   unsavedEvents: Record<string, CardData>;
   setUnsavedEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
@@ -43,14 +42,18 @@ export default function Saved({
     console.log(active);
     console.log(over);
     // If delta.x and delta.y, then do not consider it a drag event
-    if ((delta.x === 0) && (delta.y === 0)) {
-        setCurrentCardModal(getSampleEvents()[active.id]);
-        setModalVisible(true);
+    if (delta.x === 0 && delta.y === 0) {
+      setCurrentCardModal(getSampleEvents()[active.id]);
+      setModalVisible(true);
     }
   }
 
   return (
     <>
+      <div className="flex flex-col items-center my-8">
+        <h2 className="text-blue-dark font-bold text-4xl"> Saved UCI Events </h2>
+      </div>
+
       <DndContext onDragEnd={handleDragEnd}>
         <div className="flex flex-col items-center my-8">
           <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
