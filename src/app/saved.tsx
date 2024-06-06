@@ -104,6 +104,9 @@ export default function Saved({
               <FindHelp text="Drag an event card to the trash can to delete it from the saved list." />
             </h2>
             <div className="flex justify-center gap-3 flex-wrap min-h-usah">
+            {Object.keys(savedEvents).length == 0 && (
+                <h3 className="text-white font-bold text-xl">No events are saved.</h3>
+              )}
               <CardList cards={savedEvents}></CardList>
             </div>
             <div className="text-white relative bottom-0 right-0">
