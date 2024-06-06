@@ -200,7 +200,7 @@ export default function Find({
                 <Button
                   text="Undo Save"
                   handleClick={handleUndo}
-                  style={1}
+                  style={3}
                 ></Button>
               )}
             </div>
