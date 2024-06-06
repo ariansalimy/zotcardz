@@ -18,6 +18,10 @@ type FindProps = {
   setSavingEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
   savedEvents: Record<string, CardData>;
   setSavedEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
+  prevSavingEvents: Record<string, CardData>;
+  setPrevSavingEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
+  prevSavedEvents: Record<string, CardData>;
+  setPrevSavedEvents: Dispatch<SetStateAction<Record<string, CardData>>>;
 };
 
 export default function Find({
@@ -27,17 +31,21 @@ export default function Find({
   setSavingEvents,
   savedEvents,
   setSavedEvents,
+  prevSavingEvents,
+  setPrevSavingEvents,
+  prevSavedEvents,
+  setPrevSavedEvents,
 }: FindProps) {
   const containers = ["saving"];
   const [parent, setParent] = useState(null);
   const [parent2, setParent2] = useState(null);
 
-  let prevSavingEvents = { ...savingEvents };
-  let prevSavedEvents = { ...savedEvents };
-
   const [modalVisible, setModalVisible] = useState(false);
   const [currentCardModal, setCurrentCardModal] =
     useState<CardData>(sampleCard);
+
+  const [savingAreaText, setSavingAreaText] = useState("Events to Save");
+  const [justSaved, setJustSaved] = useState(false);
 
   const events_section = {
     display: "flex",
@@ -111,7 +119,10 @@ export default function Find({
         </div> */}
 
         <div className="flex flex-col items-center my-8">
-          <h2 className="text-blue-dark font-bold text-4xl"> Find UCI Events </h2>
+          <h2 className="text-blue-dark font-bold text-4xl">
+            {" "}
+            Find UCI Events{" "}
+          </h2>
         </div>
 
         <div className="flex flex-col items-center my-8">
@@ -148,12 +159,25 @@ export default function Find({
             <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
               <h2 className="text-white font-bold text-2xl">
                 {" "}
-                Events to Save{" "}
+                {savingAreaText}{" "}
               </h2>
               <div className="flex justify-center gap-3 flex-wrap min-h-sah">
                 <CardList cards={savingEvents}></CardList>
               </div>
-              <Button text="Save Events" handleClick={handleSave} style={1}></Button>
+              {!justSaved && (
+                <Button
+                  text="Save Events"
+                  handleClick={handleSave}
+                  style={1}
+                ></Button>
+              )}
+              {justSaved && (
+                <Button
+                  text="Undo Save"
+                  handleClick={handleUndo}
+                  style={1}
+                ></Button>
+              )}
             </div>
           </div>
         </Droppable>
@@ -181,6 +205,8 @@ export default function Find({
       if (over && over.id === "saving") {
         // Check to make sure the card is not already in the saving area
         if (!savingEvents[active.id]) {
+          setJustSaved(false);
+          setSavingAreaText("Events to Save");
           // Add Event to savingEvents
           const tempSaving = { ...savingEvents };
           tempSaving[active.id] = unsavedEvents[active.id];
@@ -210,6 +236,9 @@ export default function Find({
           const tempSaving = { ...savingEvents };
           delete tempSaving[active.id];
           setSavingEvents(tempSaving);
+
+          setJustSaved(false);
+          setSavingAreaText("Events to Save");
         }
       }
     }
@@ -224,8 +253,12 @@ export default function Find({
     console.log(event);
     // Log the state of savingEvents and savedEvents if savingEvents was not empty
     if (Object.keys(savingEvents).length > 0) {
-      prevSavingEvents = { ...savingEvents };
-      prevSavedEvents = { ...savedEvents };
+      setPrevSavingEvents({ ...savingEvents });
+      setPrevSavedEvents({ ...savedEvents });
+
+      console.log(`Before Save: Saving then Saved`);
+      console.log(prevSavingEvents);
+      console.log(prevSavedEvents);
 
       const tempSavingEvents = { ...savingEvents };
       const tempSavedEvents = { ...savedEvents };
@@ -236,16 +269,28 @@ export default function Find({
 
       setSavingEvents(tempSavingEvents);
       setSavedEvents(tempSavedEvents);
+
+      setJustSaved(true);
+      setSavingAreaText("Save Completed!");
+
+      console.log(`After Save: Saving then Saved`);
+      console.log(prevSavingEvents);
+      console.log(prevSavedEvents);
     }
 
-    console.log(savingEvents);
-    console.log(savedEvents);
+    // console.log(savingEvents);
+    // console.log(savedEvents);
   }
 
   // When we implement the undo button, attach this function as the onClick function
   function handleUndo(event: React.MouseEvent) {
     console.log(event);
+    console.log(prevSavingEvents);
+    console.log(prevSavedEvents);
     setSavingEvents({ ...prevSavingEvents });
     setSavedEvents({ ...prevSavedEvents });
+
+    setJustSaved(false);
+    setSavingAreaText("Events to Save");
   }
 }

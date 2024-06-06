@@ -69,7 +69,7 @@ export default function InfoModal({
             </p>
             <ul>
               {cardData.links.map((link) => (
-                <li className=" text-blue-dark underline">
+                <li className=" text-blue-dark underline" key={link.link}>
                   <a href={link.link} target="_blank">
                     {" "}
                     {link.kind}{" "}
