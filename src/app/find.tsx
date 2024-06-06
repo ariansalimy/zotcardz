@@ -46,7 +46,11 @@ export default function Find({
     useState<CardData>(sampleCard);
 
   const [savingAreaText, setSavingAreaText] = useState("Events to Save");
+  const [eventsAreaText, setEventsAreaText] = useState("UCI Events");
   const [justSaved, setJustSaved] = useState(false);
+
+  const [randCardData, setRandCardData] = useState(sampleCard);
+  const [isRandom, setIsRandom] = useState(false);
 
   const events_section = {
     display: "flex",
@@ -128,10 +132,30 @@ export default function Find({
 
         <div className="flex flex-col items-center my-8">
           <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
-            <h2 className="text-white font-bold text-2xl"> UCI Events <FindHelp /> </h2>
+            <h2 className="text-white font-bold text-2xl">
+              {" "}
+              {eventsAreaText} <FindHelp />{" "}
+            </h2>
             <div className="flex justify-center gap-3 flex-wrap min-h-usah">
-              <CardList cards={unsavedEvents}></CardList>
+              {!isRandom && <CardList cards={unsavedEvents}></CardList>}
+              {isRandom && (
+                <Draggable id={randCardData.id}>
+                  <div style={item}>
+                    <Event_card cardData={randCardData}></Event_card>
+                  </div>
+                </Draggable>
+              )}
             </div>
+            {!isRandom && (
+              <Button text="Pick For Me" style={2} handleClick={handlePick} />
+            )}
+            {isRandom && (
+              <Button
+                text="Redraw the Card"
+                style={2}
+                handleClick={handlePick}
+              />
+            )}
           </div>
         </div>
 
@@ -204,6 +228,10 @@ export default function Find({
     if (!(delta.x === 0) && !(delta.y === 0)) {
       // Card in the saving area
       if (over && over.id === "saving") {
+        if (isRandom) {
+          setIsRandom(false);
+          setEventsAreaText("UCI Events");
+        }
         // Check to make sure the card is not already in the saving area
         if (!savingEvents[active.id]) {
           setJustSaved(false);
@@ -293,5 +321,23 @@ export default function Find({
 
     setJustSaved(false);
     setSavingAreaText("Events to Save");
+  }
+
+  function handlePick(event: React.MouseEvent) {
+    console.log(event);
+    // Only if there are no unsaved events
+    if (Object.keys(unsavedEvents).length > 0) {
+      const selectedId =
+        Object.keys(unsavedEvents)[
+          Math.floor(Math.random() * Object.keys(unsavedEvents).length)
+        ];
+      console.log(selectedId);
+
+      setRandCardData(getSampleEvents()[selectedId]);
+      setIsRandom(true);
+      setEventsAreaText("Draw Your Random Card");
+
+      console.log(unsavedEvents);
+    }
   }
 }
