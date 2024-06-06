@@ -12,10 +12,10 @@ export type CardData = {
     timeEnd: number, // in minutes
     description: string,
     location: string,
-    links: [{
+    links: {
         kind: string, // Like "Volunteer" or "Mentor"
         link: string
-    }]
+    }[]
 }
 
 export const sampleCard: CardData = {
@@ -86,6 +86,9 @@ export function hrmin_to_str(hours: number, minutes: number):string {
    let convHours = hours
    if(hours > 12) {
     convHours -= 12;
+   }
+   else if(hours === 0) {
+    convHours = 12;
    }
 
    let strMin = minutes.toString();
