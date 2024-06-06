@@ -81,7 +81,7 @@ export default function Saved({
           <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
             <h2 className="text-white font-bold text-2xl">
               Saved Events{" "}
-              <FindHelp text="Drag an event card to the trash can delete it from the saved list." />
+              <FindHelp text="Drag an event card to the trash can to delete it from the saved list." />
             </h2>
             <div className="flex justify-center gap-3 flex-wrap min-h-usah">
               <CardList cards={savedEvents}></CardList>
