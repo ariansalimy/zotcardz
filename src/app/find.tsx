@@ -10,7 +10,7 @@ import { CardData, sampleCard } from "./data/card-data";
 import CardList from "./component/card-list";
 import InfoModal from "./component/info-modal";
 import getSampleEvents from "./data/sampleEvents";
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import FindHelp from "./component/find-help";
 
 type FindProps = {
   unsavedEvents: Record<string, CardData>;
@@ -128,7 +128,7 @@ export default function Find({
 
         <div className="flex flex-col items-center my-8">
           <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
-            <h2 className="text-white font-bold text-2xl"> UCI Events </h2>
+            <h2 className="text-white font-bold text-2xl"> UCI Events <FindHelp /> </h2>
             <div className="flex justify-center gap-3 flex-wrap min-h-usah">
               <CardList cards={unsavedEvents}></CardList>
             </div>
