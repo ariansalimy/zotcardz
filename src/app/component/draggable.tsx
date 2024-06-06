@@ -1,3 +1,4 @@
+// Class mainly from https://docs.dndkit.com/introduction/getting-started
 import React from 'react';
 import {useDraggable} from '@dnd-kit/core';
 

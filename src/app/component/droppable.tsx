@@ -1,3 +1,4 @@
+// Class mainly from https://docs.dndkit.com/introduction/getting-started
 import React from 'react';
 import {useDroppable} from '@dnd-kit/core';
 

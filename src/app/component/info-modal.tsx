@@ -32,10 +32,10 @@ export default function InfoModal({
     >
       <div
         className=" fixed top-0 left-0 w-screen h-screen bg-black/50 "
-        onClick={() => setVisible(false)}
       />
-      <div className="fixed top-[32vh] left-[35vw] flex-col bg-white p-8 align-middle justify-center rounded-2xl">
-        <div className="flex flex-col bg-white p-8 align-middle justify-center text-center">
+      {/* https://www.geeksforgeeks.org/how-to-fixed-an-element-to-center-in-tailwind-css/  was where this Tailwind CSS centering technique was found*/}
+      <div className="flex fixed inset-0 justify-center items-center" onClick={() => setVisible(false)}>
+        <div className="flex flex-col bg-white p-8 align-middle justify-center text-center rounded-2xl" onClick={(event) => event.stopPropagation()}>
           <div className="m-3">
             <h2 className=" text-2xl text-blue-dark font-bold">
               {cardData.name}
