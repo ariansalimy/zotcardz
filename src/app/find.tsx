@@ -134,7 +134,7 @@ export default function Find({
           <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
             <h2 className="text-white font-bold text-2xl">
               {" "}
-              {eventsAreaText} <FindHelp />{" "}
+              {eventsAreaText} <FindHelp text="Drag an event card to the “Events to Save” area and press the button to save it!" />{" "}
             </h2>
             <div className="flex justify-center gap-3 flex-wrap min-h-usah">
               {!isRandom && <CardList cards={unsavedEvents}></CardList>}
