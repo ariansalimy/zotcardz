@@ -11,6 +11,8 @@ import CardList from "./component/card-list";
 import InfoModal from "./component/info-modal";
 import getSampleEvents from "./data/sampleEvents";
 import FindHelp from "./component/find-help";
+import { Backspace } from "@mui/icons-material";
+import { ArrowBackIosNew } from "@mui/icons-material";
 
 type FindProps = {
   unsavedEvents: Record<string, CardData>;
@@ -158,13 +160,14 @@ export default function Find({
                   handleClick={handlePick}
                 />
                 <Button
-                  text="Show Full List"
+                  text="Go Back"
                   style={3}
                   handleClick={() => {
                     setIsRandom(false);
                     setEventsAreaText("UCI Events");
                   }}
                 />
+               
               </>
             )}
           </div>
