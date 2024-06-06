@@ -134,7 +134,8 @@ export default function Find({
           <div className="flex flex-col items-center bg-blue-light w-11/12 rounded-2xl p-2.5 gap-4">
             <h2 className="text-white font-bold text-2xl">
               {" "}
-              {eventsAreaText} <FindHelp text="Drag an event card to the “Events to Save” area and press the button to save it!" />{" "}
+              {eventsAreaText}{" "}
+              <FindHelp text="Drag an event card to the “Events to Save” area and press the button to save it!" />{" "}
             </h2>
             <div className="flex justify-center gap-3 flex-wrap min-h-usah">
               {!isRandom && <CardList cards={unsavedEvents}></CardList>}
@@ -150,11 +151,21 @@ export default function Find({
               <Button text="Pick For Me" style={2} handleClick={handlePick} />
             )}
             {isRandom && (
-              <Button
-                text="Redraw the Card"
-                style={2}
-                handleClick={handlePick}
-              />
+              <>
+                <Button
+                  text="Redraw the Card"
+                  style={2}
+                  handleClick={handlePick}
+                />
+                <Button
+                  text="Show Full List"
+                  style={3}
+                  handleClick={() => {
+                    setIsRandom(false);
+                    setEventsAreaText("UCI Events");
+                  }}
+                />
+              </>
             )}
           </div>
         </div>
@@ -305,6 +316,8 @@ export default function Find({
       console.log(`After Save: Saving then Saved`);
       console.log(prevSavingEvents);
       console.log(prevSavedEvents);
+      setIsRandom(false);
+      setEventsAreaText("UCI Events");
     }
 
     // console.log(savingEvents);
