@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Navbar from "./component/navbar";
 import Event_card from "./component/Event_card";
-import Save_button from "./component/Save_button";
+import Button from "./component/Button";
 import { DndContext } from "@dnd-kit/core";
 import { useEffect, useState } from "react";
 import { Draggable } from "./component/draggable";

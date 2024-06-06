@@ -5,7 +5,7 @@ import { Draggable } from "./component/draggable";
 import Event_card from "./component/Event_card";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Droppable } from "./component/droppable";
-import Save_button from "./component/Save_button";
+import Button from "./component/Button";
 import { CardData, sampleCard } from "./data/card-data";
 import CardList from "./component/card-list";
 import InfoModal from "./component/info-modal";

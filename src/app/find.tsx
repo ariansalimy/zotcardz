@@ -5,7 +5,7 @@ import { Draggable } from "./component/draggable";
 import Event_card from "./component/Event_card";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Droppable } from "./component/droppable";
-import Save_button from "./component/Save_button";
+import Button from "./component/Button";
 import { CardData, sampleCard } from "./data/card-data";
 import CardList from "./component/card-list";
 import InfoModal from "./component/info-modal";
@@ -153,7 +153,7 @@ export default function Find({
               <div className="flex justify-center gap-3 flex-wrap min-h-sah">
                 <CardList cards={savingEvents}></CardList>
               </div>
-              <Save_button handleClick={handleSave}></Save_button>
+              <Button text="Save Events" handleClick={handleSave} style={1}></Button>
             </div>
           </div>
         </Droppable>
