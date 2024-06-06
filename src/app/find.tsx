@@ -111,7 +111,7 @@ export default function Find({
         </div> */}
 
         <div className="flex flex-col items-center my-8">
-          <h2 className="text-blue-dark font-bold text-4xl"> UCI Events </h2>
+          <h2 className="text-blue-dark font-bold text-4xl"> Find UCI Events </h2>
         </div>
 
         <div className="flex flex-col items-center my-8">
